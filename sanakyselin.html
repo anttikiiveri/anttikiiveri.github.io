@@ -72,7 +72,7 @@
                 naytaTulokset();
             }
             // Näytä tilanne ylänäkymässä jokaisen vastauksen jälkeen
-            var tilanne = 'Oikeat vastaukset: ' + oikeatVastaukset + ', Väärät vastaukset: ' + vaaratVastaukset + ', Kysymysten kokonaismäärä: ' + sanasto.length;
+            var tilanne = 'Oikeat vastaukset: ' + oikeatVastaukset + ', Väärät vastaukset: ' + vaaratVastaukset + ', Kysymyksiä jäljellä: ' + (sanasto.length - oikeatVastaukset - vaaratVastaukset);
             document.getElementById('ylaNakyma').textContent = tilanne;
         }
 
