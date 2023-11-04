@@ -22,6 +22,8 @@
     <script>
         var sanasto = [];
         var nykyinenKysymys = 0;
+        var oikeatVastaukset = 0;
+        var vaaratVastaukset = 0;
 
         // Lataa CSV-tiedoston sisältö ja käynnistä sovellus
         fetch('https://anttikiiveri.github.io/sanalista.csv')
@@ -58,21 +60,24 @@
         function tarkistaVastaus() {
             var kayttajanVastaus = document.getElementById('answer').value.trim().toLowerCase();
             var oikeaVastaus = sanasto[nykyinenKysymys].englanti.toLowerCase();
-            var tulosTeksti = '';
             if (kayttajanVastaus === oikeaVastaus) {
-                tulosTeksti = 'Oikein! Vastasit oikein.';
+                oikeatVastaukset++;
             } else {
-                tulosTeksti = 'Väärin. Oikea vastaus on: ' + oikeaVastaus;
+                vaaratVastaukset++;
             }
-            document.getElementById('ylaNakyma').textContent = tulosTeksti + ' (Kysymys ' + (nykyinenKysymys + 1) + '/' + sanasto.length + ')';
             nykyinenKysymys++;
             if (nykyinenKysymys < sanasto.length) {
                 naytaTervetuloa();
             } else {
-                alert("Olet suorittanut kaikki kysymykset!");
-                nykyinenKysymys = 0;
-                naytaTervetuloa();
+                naytaTulokset();
             }
+            // Näytä tilanne ylänäkymässä jokaisen vastauksen jälkeen
+            var tilanne = 'Oikeat vastaukset: ' + oikeatVastaukset + ', Väärät vastaukset: ' + vaaratVastaukset + ', Kysymysten kokonaismäärä: ' + sanasto.length;
+            document.getElementById('ylaNakyma').textContent = tilanne;
+        }
+
+        function naytaTulokset() {
+            document.getElementById('kysymysJaVastaus').style.display = 'none';
         }
     </script>
 </body>
