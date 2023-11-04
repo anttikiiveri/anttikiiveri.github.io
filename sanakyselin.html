@@ -4,56 +4,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sanakyselin</title>
+    <title>Kielenkysely</title>
 </head>
 
 <body>
-    <div id="question"></div>
-    <input type="text" id="answer">
-    <button onclick="tarkistaVastaus()">Tarkista</button>
-    <button onclick="naytaSeuraava()">Seuraava</button>
-    <div id="vastaus"></div>
+    <div id="kysymysNakyma">
+        <div id="question"></div>
+        <input type="text" id="answer">
+        <button id="vastaaButton" onclick="tarkistaVastaus()">Vastaa</button>
+    </div>
+
+    <div id="tulosNakyma" style="display:none;">
+        <div id="vastaus"></div>
+        <button id="seuraavaButton" onclick="naytaSeuraava()">Seuraava</button>
+    </div>
 
     <script>
-    // Lähetä GET-pyyntö palvelimelle
-    var sanasto  = [];
-    var nykyinenKysymys = 0;
-    fetch('https://anttikiiveri.github.io/sanalista.csv')
-        .then(function (response) {
-            return response.text();
-        })
-        .then(function (tiedostonSisalto) {
-            sanasto = parseCSV(tiedostonSisalto);
-            console.log("Tiedoston sisältö: \n" + tiedostonSisalto);
-            console.log("Sanasto: " + sanasto);
-            naytaKysymys();
-        })
-        .catch(function (error) {
-            console.error("Virhe tiedoston latauksessa: " + error);
-        });
+        var sanasto = [];
+        var nykyinenKysymys = 0;
 
-        
+        // Lataa CSV-tiedoston sisältö ja käynnistä sovellus
+        fetch('https://anttikiiveri.github.io/sanalista.csv')
+            .then(function (response) {
+                return response.text();
+            })
+            .then(function (tiedostonSisalto) {
+                sanasto = parseCSV(tiedostonSisalto);
+                naytaKysymys();
+            })
+            .catch(function (error) {
+                console.error("Virhe tiedoston latauksessa: " + error);
+            });
 
         function parseCSV(csvData) {
-            console.log(csvData);
             var rivit = csvData.split('\n');
-            console.log(rivit)
             var sanat = [];
             for (var i = 0; i < rivit.length; i++) {
                 var sana = rivit[i].split(',');
-                console.log("Sana:" + sana);
                 sanat.push({
                     suomi: sana[0].trim(),
                     englanti: sana[1].trim()
                 });
             }
-            console.log("Sanat:" + sanat);
             return sanat;
         }
 
         function naytaKysymys() {
-            var satunnainenSana = sanasto[nykyinenKysymys];
-            document.getElementById('question').textContent = 'Mikä on sana englanniksi: ' + satunnainenSana.suomi;
+            document.getElementById('kysymysNakyma').style.display = 'block';
+            document.getElementById('tulosNakyma').style.display = 'none';
+            document.getElementById('question').textContent = 'Mikä on sana englanniksi: ' + sanasto[nykyinenKysymys].suomi;
             document.getElementById('answer').value = '';
             document.getElementById('vastaus').textContent = '';
         }
@@ -61,22 +60,28 @@
         function tarkistaVastaus() {
             var kayttajanVastaus = document.getElementById('answer').value.trim().toLowerCase();
             var oikeaVastaus = sanasto[nykyinenKysymys].englanti.toLowerCase();
+            var tulosTeksti = '';
             if (kayttajanVastaus === oikeaVastaus) {
-                document.getElementById('vastaus').textContent = 'Oikein! Vastasit oikein.';
+                tulosTeksti = 'Oikein! Vastasit oikein.';
             } else {
-                document.getElementById('vastaus').textContent = 'Väärin. Oikea vastaus on: ' + oikeaVastaus;
+                tulosTeksti = 'Väärin. Oikea vastaus on: ' + oikeaVastaus;
             }
+            document.getElementById('vastaus').textContent = tulosTeksti;
+            document.getElementById('kysymysNakyma').style.display = 'none';
+            document.getElementById('tulosNakyma').style.display = 'block';
         }
 
         function naytaSeuraava() {
-            if (nykyinenKysymys < sanasto.length - 1) {
-                nykyinenKysymys++;
+            nykyinenKysymys++;
+            if (nykyinenKysymys < sanasto.length) {
                 naytaKysymys();
             } else {
                 alert("Olet suorittanut kaikki kysymykset!");
+                nykyinenKysymys = 0;
+                naytaKysymys();
             }
         }
-        </script>
+    </script>
 </body>
 
 </html>
