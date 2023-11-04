@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanakyselin</title>
+</head>
+
+<body>
+    <h1>CSV-tiedoston lataus</h1>
+    <button onclick="lataaCSV()">Lataa CSV</button>
+
+    <script>
+        function lataaCSV() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', './sanalista.csv', true); // Tiedostonimi.csv tulee korvata oikealla tiedostonimellä
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var csvData = xhr.responseText;
+                    tulostaCSV(csvData);
+                }
+            };
+            xhr.send();
+        }
+
+        function tulostaCSV(csvData) {
+            var rivit = csvData.split('\n');
+            for (var i = 0; i < rivit.length; i++) {
+                var solut = rivit[i].split(',');
+                for (var j = 0; j < solut.length; j++) {
+                    console.log('Rivi ' + (i + 1) + ', Sarake ' + (j + 1) + ': ' + solut[j]);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
