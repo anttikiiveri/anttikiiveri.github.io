@@ -11,11 +11,13 @@
     <div id="question"></div>
     <input type="text" id="answer">
     <button onclick="tarkistaVastaus()">Tarkista</button>
+    <button onclick="naytaSeuraava()">Seuraava</button>
     <div id="vastaus"></div>
 
     <script>
     // Lähetä GET-pyyntö palvelimelle
     var sanasto  = [];
+    var nykyinenKysymys = 0;
     fetch('https://anttikiiveri.github.io/sanalista.csv')
         .then(function (response) {
             return response.text();
@@ -50,25 +52,31 @@
         }
 
         function naytaKysymys() {
-    var satunnainenSana = sanasto[Math.floor(Math.random() * sanasto.length)];
-    // Tallenna oikea vastaus kysymyksen yhteyteen
-    document.getElementById('question').dataset.oikeaVastaus = satunnainenSana.englanti;
-    document.getElementById('question').textContent = 'Mikä on sana englanniksi: ' + satunnainenSana.suomi;
-    document.getElementById('answer').value = '';
-}
+            var satunnainenSana = sanasto[nykyinenKysymys];
+            document.getElementById('question').textContent = 'Mikä on sana englanniksi: ' + satunnainenSana.suomi;
+            document.getElementById('answer').value = '';
+            document.getElementById('vastaus').textContent = '';
+        }
 
-function tarkistaVastaus() {
-    var kayttajanVastaus = document.getElementById('answer').value.trim().toLowerCase();
-    var oikeaVastaus = document.getElementById('question').dataset.oikeaVastaus.toLowerCase();
-    if (kayttajanVastaus === oikeaVastaus) {
-        document.getElementById('vastaus').textContent = 'Oikein! Vastasit oikein.';
-    } else {
-        document.getElementById('vastaus').textContent = 'Väärin. Oikea vastaus on: ' + oikeaVastaus;
-    }
-    naytaKysymys();
-}
+        function tarkistaVastaus() {
+            var kayttajanVastaus = document.getElementById('answer').value.trim().toLowerCase();
+            var oikeaVastaus = sanasto[nykyinenKysymys].englanti.toLowerCase();
+            if (kayttajanVastaus === oikeaVastaus) {
+                document.getElementById('vastaus').textContent = 'Oikein! Vastasit oikein.';
+            } else {
+                document.getElementById('vastaus').textContent = 'Väärin. Oikea vastaus on: ' + oikeaVastaus;
+            }
+        }
 
-</script>
+        function naytaSeuraava() {
+            if (nykyinenKysymys < sanasto.length - 1) {
+                nykyinenKysymys++;
+                naytaKysymys();
+            } else {
+                alert("Olet suorittanut kaikki kysymykset!");
+            }
+        }
+        </script>
 </body>
 
 </html>
