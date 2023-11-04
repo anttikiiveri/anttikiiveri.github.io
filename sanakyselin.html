@@ -8,32 +8,67 @@
 </head>
 
 <body>
-    <h1>CSV-tiedoston lataus</h1>
-    <button onclick="lataaCSV()">Lataa CSV</button>
+    <div id="question"></div>
+    <input type="text" id="answer">
+    <button onclick="tarkistaVastaus()">Tarkista</button>
+    <div id="vastaus"></div>
 
     <script>
-        function lataaCSV() {
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', './sanalista.csv', true); // Tiedostonimi.csv tulee korvata oikealla tiedostonimellä
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    var csvData = xhr.responseText;
-                    tulostaCSV(csvData);
-                }
-            };
-            xhr.send();
+    // Lähetä GET-pyyntö palvelimelle
+    var sanasto  = [];
+    fetch('https://anttikiiveri.github.io/sanalista.csv')
+        .then(function (response) {
+            return response.text();
+        })
+        .then(function (tiedostonSisalto) {
+            sanasto = parseCSV(tiedostonSisalto);
+            console.log("Tiedoston sisältö: \n" + tiedostonSisalto);
+            console.log("Sanasto: " + sanasto);
+            naytaKysymys();
+        })
+        .catch(function (error) {
+            console.error("Virhe tiedoston latauksessa: " + error);
+        });
+
+        
+
+        function parseCSV(csvData) {
+            console.log(csvData);
+            var rivit = csvData.split('\n');
+            console.log(rivit)
+            var sanat = [];
+            for (var i = 0; i < rivit.length; i++) {
+                var sana = rivit[i].split(',');
+                console.log("Sana:" + sana);
+                sanat.push({
+                    suomi: sana[0].trim(),
+                    englanti: sana[1].trim()
+                });
+            }
+            console.log("Sanat:" + sanat);
+            return sanat;
         }
 
-        function tulostaCSV(csvData) {
-            var rivit = csvData.split('\n');
-            for (var i = 0; i < rivit.length; i++) {
-                var solut = rivit[i].split(',');
-                for (var j = 0; j < solut.length; j++) {
-                    console.log('Rivi ' + (i + 1) + ', Sarake ' + (j + 1) + ': ' + solut[j]);
-                }
-            }
-        }
-    </script>
+        function naytaKysymys() {
+    var satunnainenSana = sanasto[Math.floor(Math.random() * sanasto.length)];
+    // Tallenna oikea vastaus kysymyksen yhteyteen
+    document.getElementById('question').dataset.oikeaVastaus = satunnainenSana.englanti;
+    document.getElementById('question').textContent = 'Mikä on sana englanniksi: ' + satunnainenSana.suomi;
+    document.getElementById('answer').value = '';
+}
+
+function tarkistaVastaus() {
+    var kayttajanVastaus = document.getElementById('answer').value.trim().toLowerCase();
+    var oikeaVastaus = document.getElementById('question').dataset.oikeaVastaus.toLowerCase();
+    if (kayttajanVastaus === oikeaVastaus) {
+        document.getElementById('vastaus').textContent = 'Oikein! Vastasit oikein.';
+    } else {
+        document.getElementById('vastaus').textContent = 'Väärin. Oikea vastaus on: ' + oikeaVastaus;
+    }
+    naytaKysymys();
+}
+
+</script>
 </body>
 
 </html>
