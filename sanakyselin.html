@@ -8,15 +8,15 @@
 </head>
 
 <body>
-    <div id="kysymysNakyma">
-        <div id="question"></div>
-        <input type="text" id="answer">
-        <button id="vastaaButton" onclick="tarkistaVastaus()">Vastaa</button>
-    </div>
-
-    <div id="tulosNakyma" style="display:none;">
-        <div id="vastaus"></div>
-        <button id="seuraavaButton" onclick="naytaSeuraava()">Seuraava</button>
+    <div id="container">
+        <div id="ylaNakyma">
+            Tervetuloa! Vastaa kysymyksiin englanniksi.
+        </div>
+        <div id="kysymysJaVastaus" style="display:none;">
+            <div id="kysymys"></div>
+            <input type="text" id="answer">
+            <button onclick="tarkistaVastaus()">Vastaa</button>
+        </div>
     </div>
 
     <script>
@@ -30,7 +30,7 @@
             })
             .then(function (tiedostonSisalto) {
                 sanasto = parseCSV(tiedostonSisalto);
-                naytaKysymys();
+                naytaTervetuloa();
             })
             .catch(function (error) {
                 console.error("Virhe tiedoston latauksessa: " + error);
@@ -49,12 +49,10 @@
             return sanat;
         }
 
-        function naytaKysymys() {
-            document.getElementById('kysymysNakyma').style.display = 'block';
-            document.getElementById('tulosNakyma').style.display = 'none';
-            document.getElementById('question').textContent = 'Mikä on sana englanniksi: ' + sanasto[nykyinenKysymys].suomi;
+        function naytaTervetuloa() {
+            document.getElementById('kysymysJaVastaus').style.display = 'block';
+            document.getElementById('kysymys').textContent = 'Mikä on sana englanniksi: ' + sanasto[nykyinenKysymys].suomi;
             document.getElementById('answer').value = '';
-            document.getElementById('vastaus').textContent = '';
         }
 
         function tarkistaVastaus() {
@@ -66,19 +64,14 @@
             } else {
                 tulosTeksti = 'Väärin. Oikea vastaus on: ' + oikeaVastaus;
             }
-            document.getElementById('vastaus').textContent = tulosTeksti;
-            document.getElementById('kysymysNakyma').style.display = 'none';
-            document.getElementById('tulosNakyma').style.display = 'block';
-        }
-
-        function naytaSeuraava() {
+            document.getElementById('ylaNakyma').textContent = tulosTeksti + ' (Kysymys ' + (nykyinenKysymys + 1) + '/' + sanasto.length + ')';
             nykyinenKysymys++;
             if (nykyinenKysymys < sanasto.length) {
-                naytaKysymys();
+                naytaTervetuloa();
             } else {
                 alert("Olet suorittanut kaikki kysymykset!");
                 nykyinenKysymys = 0;
-                naytaKysymys();
+                naytaTervetuloa();
             }
         }
     </script>
