@@ -5,12 +5,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kielenkysely</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #container {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+        }
+
+        #kysymys {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        #answer {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #ylaNakyma {
+            font-size: 18px;
+        }
+    </style>
 </head>
 
 <body>
     <div id="container">
         <div id="ylaNakyma">
-            Tervetuloa! Vastaa kysymyksiin englanniksi.
+            Tervetuloa! Vastaa kysymyksiin.
         </div>
         <div id="kysymysJaVastaus" style="display:none;">
             <div id="kysymys"></div>
@@ -25,6 +78,9 @@
         var oikeatVastaukset = 0;
         var vaaratVastaukset = 0;
 
+        var answerInput = document.getElementById('answer');
+
+
         // Lataa CSV-tiedoston sisältö ja käynnistä sovellus
         fetch('https://anttikiiveri.github.io/sanalista.csv')
             .then(function (response) {
@@ -37,6 +93,15 @@
             .catch(function (error) {
                 console.error("Virhe tiedoston latauksessa: " + error);
             });
+
+        // Kuuntele 'Enter'-näppäimen painallusta input-kentässä
+        answerInput.addEventListener('keyup', function(event) {
+            // Tarkista, onko painallus 'Enter'
+            if (event.key === 'Enter') {
+                // Suorita vastaavan toiminnon kuin 'Vastaa'-näppäimen painallus
+                tarkistaVastaus();
+            }
+        });
 
         function parseCSV(csvData) {
             var rivit = csvData.split('\n');
@@ -53,7 +118,7 @@
 
         function naytaTervetuloa() {
             document.getElementById('kysymysJaVastaus').style.display = 'block';
-            document.getElementById('kysymys').textContent = 'Mikä on sana englanniksi: ' + sanasto[nykyinenKysymys].suomi;
+            document.getElementById('kysymys').textContent = 'Mikä on englanniksi: ' + sanasto[nykyinenKysymys].suomi;
             document.getElementById('answer').value = '';
         }
 
