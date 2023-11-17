@@ -56,8 +56,16 @@
 
         #ylaNakyma {
             font-size: 18px;
+            height: 80px;
         }
-    </style>
+
+        #alaNakyma {
+            font-size: 18px;
+            height: 80px;
+            margin-top: 40px;
+        }
+
+</style>
 </head>
 
 <body>
@@ -69,6 +77,9 @@
             <div id="kysymys"></div>
             <input type="text" id="answer">
             <button onclick="tarkistaVastaus()">Vastaa</button>
+        </div>
+        <div id="alaNakyma">
+
         </div>
     </div>
 
@@ -127,8 +138,10 @@
             var oikeaVastaus = sanasto[nykyinenKysymys].englanti.toLowerCase();
             if (kayttajanVastaus === oikeaVastaus) {
                 oikeatVastaukset++;
+                document.getElementById('alaNakyma').textContent = "Oikein";    
             } else {
                 vaaratVastaukset++;
+                document.getElementById('alaNakyma').textContent = "Väärin, oikea vastaus on " + oikeaVastaus;    
             }
             nykyinenKysymys++;
             if (nykyinenKysymys < sanasto.length) {
