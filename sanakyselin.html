@@ -54,6 +54,11 @@
             background-color: #45a049;
         }
 
+        #otsikko {
+            font-size: 24px;
+            height: 80px;
+        }
+
         #ylaNakyma {
             font-size: 18px;
             height: 80px;
@@ -62,7 +67,7 @@
         #alaNakyma {
             font-size: 18px;
             height: 80px;
-            margin-top: 40px;
+            margin-top: 60px;
         }
 
 </style>
@@ -70,8 +75,8 @@
 
 <body>
     <div id="container">
-        <div id="ylaNakyma">
-            Tervetuloa! Vastaa kysymyksiin.
+        <div id="otsikko">
+            Sanakyselin
         </div>
         <div id="kysymysJaVastaus" style="display:none;">
             <div id="kysymys"></div>
@@ -79,15 +84,16 @@
             <button onclick="tarkistaVastaus()">Vastaa</button>
         </div>
         <div id="alaNakyma">
-
+        </div>
+        <div id="ylaNakyma">
         </div>
     </div>
 
     <script>
         var sanasto = [];
-        var nykyinenKysymys = 0;
         var oikeatVastaukset = 0;
         var vaaratVastaukset = 0;
+        var kysymys = '';
 
         var answerInput = document.getElementById('answer');
 
@@ -99,7 +105,7 @@
             })
             .then(function (tiedostonSisalto) {
                 sanasto = parseCSV(tiedostonSisalto);
-                naytaTervetuloa();
+                naytaKysymys();
             })
             .catch(function (error) {
                 console.error("Virhe tiedoston latauksessa: " + error);
@@ -124,33 +130,50 @@
                     englanti: sana[1].trim()
                 });
             }
+            shuffle(sanat);
             return sanat;
         }
 
-        function naytaTervetuloa() {
+        function shuffle(array) {
+            let currentIndex = array.length,  randomIndex;
+            // While there remain elements to shuffle.
+            while (currentIndex > 0) {
+                // Pick a remaining element.
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+
+                // And swap it with the current element.
+                [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
+            }
+            return array;
+        }
+
+        function naytaKysymys() {
+            kysymys = sanasto.pop();
             document.getElementById('kysymysJaVastaus').style.display = 'block';
-            document.getElementById('kysymys').textContent = 'Mikä on ruotsiksi: ' + sanasto[nykyinenKysymys].suomi;
+            document.getElementById('kysymys').textContent = 'Mikä on ruotsiksi: ' + kysymys.suomi;
             document.getElementById('answer').value = '';
         }
 
         function tarkistaVastaus() {
             var kayttajanVastaus = document.getElementById('answer').value.trim().toLowerCase();
-            var oikeaVastaus = sanasto[nykyinenKysymys].englanti.toLowerCase();
+            var oikeaVastaus = kysymys.englanti.toLowerCase();
             if (kayttajanVastaus === oikeaVastaus) {
                 oikeatVastaukset++;
-                document.getElementById('alaNakyma').textContent = "Oikein";    
+                document.getElementById('alaNakyma').textContent = "Oikein, oikea vastaus on " + oikeaVastaus;
             } else {
                 vaaratVastaukset++;
+                sanasto.unshift(kysymys);
                 document.getElementById('alaNakyma').textContent = "Väärin, oikea vastaus on " + oikeaVastaus;    
             }
-            nykyinenKysymys++;
-            if (nykyinenKysymys < sanasto.length) {
-                naytaTervetuloa();
+            if (sanasto.length > 0) {
+                naytaKysymys();
             } else {
                 naytaTulokset();
             }
             // Näytä tilanne ylänäkymässä jokaisen vastauksen jälkeen
-            var tilanne = 'Oikeat vastaukset: ' + oikeatVastaukset + ', Väärät vastaukset: ' + vaaratVastaukset + ', Kysymyksiä jäljellä: ' + (sanasto.length - oikeatVastaukset - vaaratVastaukset);
+            var tilanne = 'Oikeat vastaukset: ' + oikeatVastaukset + ', Väärät vastaukset: ' + vaaratVastaukset + ', Kysymyksiä jäljellä: ' + (sanasto.length);
             document.getElementById('ylaNakyma').textContent = tilanne;
         }
 
