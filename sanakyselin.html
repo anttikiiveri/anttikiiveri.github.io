@@ -105,6 +105,7 @@
             })
             .then(function (tiedostonSisalto) {
                 sanasto = parseCSV(tiedostonSisalto);
+                naytaTilanne();
                 naytaKysymys();
             })
             .catch(function (error) {
@@ -119,6 +120,13 @@
                 tarkistaVastaus();
             }
         });
+
+        function naytaTilanne() {
+            // Näytä tilanne jokaisen vastauksen jälkeen
+            var tilanne = 'Oikeat vastaukset: ' + oikeatVastaukset + ', Väärät vastaukset: ' + vaaratVastaukset + ', Kysymyksiä jäljellä: ' + (sanasto.length);
+            document.getElementById('ylaNakyma').textContent = tilanne;
+
+        }
 
         function parseCSV(csvData) {
             var rivit = csvData.split('\n');
@@ -165,21 +173,24 @@
             } else {
                 vaaratVastaukset++;
                 sanasto.unshift(kysymys);
-                document.getElementById('alaNakyma').textContent = "Väärin, oikea vastaus on " + oikeaVastaus;    
+                var vastaus = "Väärin";
+                if (sanasto.length > 1) {
+                    vastaus = vastaus + ", oikea vastaus on " + oikeaVastaus;
+                } 
+                document.getElementById('alaNakyma').textContent = vastaus;
             }
+            naytaTilanne();
+
             if (sanasto.length > 0) {
                 naytaKysymys();
             } else {
                 naytaTulokset();
             }
-            // Näytä tilanne ylänäkymässä jokaisen vastauksen jälkeen
-            var tilanne = 'Oikeat vastaukset: ' + oikeatVastaukset + ', Väärät vastaukset: ' + vaaratVastaukset + ', Kysymyksiä jäljellä: ' + (sanasto.length);
-            document.getElementById('ylaNakyma').textContent = tilanne;
         }
 
         function naytaTulokset() {
             document.getElementById('kysymysJaVastaus').style.display = 'none';
-
+            document.getElementById('alaNakyma').textContent = "Testi on päättynyt";
         }
     </script>
 </body>
