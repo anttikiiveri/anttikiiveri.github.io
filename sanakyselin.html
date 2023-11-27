@@ -165,8 +165,8 @@
         }
 
         function tarkistaVastaus() {
-            var kayttajanVastaus = document.getElementById('answer').value.trim().toLowerCase();
-            var oikeaVastaus = kysymys.englanti.toLowerCase();
+            var kayttajanVastaus = document.getElementById('answer').value.trim();
+            var oikeaVastaus = kysymys.englanti;
             if (kayttajanVastaus === oikeaVastaus) {
                 oikeatVastaukset++;
                 document.getElementById('alaNakyma').textContent = "Oikein, oikea vastaus on " + oikeaVastaus;
