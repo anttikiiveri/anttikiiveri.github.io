@@ -167,7 +167,7 @@
         function tarkistaVastaus() {
             var kayttajanVastaus = document.getElementById('answer').value.trim();
             var oikeaVastaus = kysymys.englanti;
-            if (kayttajanVastaus === oikeaVastaus) {
+            if (kayttajanVastaus.toLowerCase() === oikeaVastaus.toLowerCase() && kayttajanVastaus.slice(1) === oikeaVastaus.slice(1)) {
                 oikeatVastaukset++;
                 document.getElementById('alaNakyma').textContent = "Oikein, oikea vastaus on " + oikeaVastaus;
             } else {
