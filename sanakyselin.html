@@ -132,7 +132,7 @@
             var rivit = csvData.split('\n');
             var sanat = [];
             for (var i = 0; i < rivit.length; i++) {
-                var sana = rivit[i].split(',');
+                var sana = rivit[i].split(';');
                 sanat.push({
                     suomi: sana[0].trim(),
                     englanti: sana[1].trim()
