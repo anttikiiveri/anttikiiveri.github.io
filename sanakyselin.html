@@ -134,8 +134,8 @@
             for (var i = 0; i < rivit.length; i++) {
                 var sana = rivit[i].split(';');
                 sanat.push({
-                    suomi: sana[0].trim(),
-                    englanti: sana[1].trim()
+                    suomi: sana[0],
+                    englanti: sana[1]
                 });
             }
             shuffle(sanat);
@@ -160,14 +160,14 @@
         function naytaKysymys() {
             kysymys = sanasto.pop();
             document.getElementById('kysymysJaVastaus').style.display = 'block';
-            document.getElementById('kysymys').textContent = 'Mikä on enkuksi: ' + kysymys.suomi;
+            document.getElementById('kysymys').textContent = 'Mikä on ruotsiksi: ' + kysymys.suomi;
             document.getElementById('answer').value = '';
         }
 
         function tarkistaVastaus() {
-            var kayttajanVastaus = document.getElementById('answer').value.trim();
+            var kayttajanVastaus = document.getElementById('answer').value;
             var oikeaVastaus = kysymys.englanti;
-            if (kayttajanVastaus.toLowerCase() === oikeaVastaus.toLowerCase() && kayttajanVastaus.slice(1) === oikeaVastaus.slice(1)) {
+            if (kayttajanVastaus === oikeaVastaus && kayttajanVastaus.slice(1) === oikeaVastaus.slice(1)) {
                 oikeatVastaukset++;
                 document.getElementById('alaNakyma').textContent = "Oikein, oikea vastaus on " + oikeaVastaus;
             } else {
