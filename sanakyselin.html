@@ -180,20 +180,26 @@
 
         function tarkistaVastaus() {
             var kayttajanVastaus = document.getElementById('answer').value;
+            document.getElementById('solu1').textContent = "";
+            document.getElementById('solu2').textContent = "";
+            document.getElementById('solu3').textContent = "";
+            document.getElementById('solu4').textContent = "";
             var oikeaVastaus = kysymys.englanti;
             if (kayttajanVastaus === oikeaVastaus && kayttajanVastaus.slice(1) === oikeaVastaus.slice(1)) {
                 oikeatVastaukset++;
-                document.getElementById('alaNakyma').textContent = "Oikein, oikea vastaus on " + oikeaVastaus;
+                document.getElementById('solu1').textContent = "Oikein, oikea vastaus on";
+                document.getElementById('solu2').textContent = oikeaVastaus;
+                document.getElementById('solu3').textContent = "";
+                document.getElementById('solu4').textContent = "";
             } else {
                 vaaratVastaukset++;
                 sanasto.unshift(kysymys);
-                var vastaus = "Väärin. Kirjoitit " + kayttajanVastaus;
-                document.getElementById('valiNakyma').textContent = vastaus;
-                vastaus = "";
+                document.getElementById('solu1').textContent = "Väärin. Kirjoitit ";
+                document.getElementById('solu2').textContent = kayttajanVastaus;
                 if (sanasto.length > 1) {
-                    vastaus = "Oikea vastaus on  " + oikeaVastaus;
+                    document.getElementById('solu3').textContent = "Oikea vastaus on ";
+                    document.getElementById('solu4').textContent = oikeaVastaus;
                 } 
-                document.getElementById('alaNakyma').textContent = vastaus;
             }
             naytaTilanne();
 
