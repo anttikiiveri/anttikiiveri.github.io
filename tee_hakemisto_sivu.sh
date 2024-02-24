@@ -4,7 +4,7 @@
 DIRECTORY="./sanastot"
 
 # HTML-sivun nimi
-HTML_FILE="index.html"
+HTML_FILE="sanakyselin.html"
 
 # Luodaan HTML-sivun alkuosa
 cat <<EOF > "$HTML_FILE"
@@ -12,10 +12,10 @@ cat <<EOF > "$HTML_FILE"
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Linkit .csv-tiedostoihin</title>
+    <title>Sanakyselin</title>
 </head>
 <body>
-    <h2>Linkit .csv-tiedostoihin</h2>
+    <h2>Valitse tiedosto, jonka sanoja haluat harjoitella</h2>
     <ul>
 EOF
 
