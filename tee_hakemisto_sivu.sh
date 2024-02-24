@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Hakemisto, josta haluat lukea .txt-tiedostot
-DIRECTORY="."
+# Hakemisto, josta haluat lukea .csv-tiedostot
+DIRECTORY="./sanastot"
 
 # HTML-sivun nimi
 HTML_FILE="index.html"
@@ -10,18 +10,18 @@ HTML_FILE="index.html"
 echo "<!DOCTYPE html>" > "$HTML_FILE"
 echo "<html>" >> "$HTML_FILE"
 echo "<head>" >> "$HTML_FILE"
-echo "  <title>Linkit .txt-tiedostoihin</title>" >> "$HTML_FILE"
+echo "  <title>Linkit .csv-tiedostoihin</title>" >> "$HTML_FILE"
 echo "</head>" >> "$HTML_FILE"
 echo "<body>" >> "$HTML_FILE"
-echo "  <h2>Linkit .txt-tiedostoihin</h2>" >> "$HTML_FILE"
+echo "  <h2>Linkit .csv-tiedostoihin</h2>" >> "$HTML_FILE"
 echo "  <ul>" >> "$HTML_FILE"
 
-# Käydään läpi .txt-tiedostot hakemistossa
+# Käydään läpi .csv-tiedostot hakemistossa
 for file in "$DIRECTORY"/*.csv; do
   # Otetaan vain tiedostonimi ilman hakemistopolkua
   filename=$(basename -- "$file")
-  # Luodaan linkki HTML-sivulle
-  echo "    <li><a href=\"$filename\">$filename</a></li>" >> "$HTML_FILE"
+  # Luodaan suhteellinen linkki HTML-sivulle
+  echo "    <li><a href=\"https://anttikiiveri.github.io/$DIRECTORY/$filename\">$filename</a></li>" >> "$HTML_FILE"
 done
 
 # Luodaan HTML-sivun loppuosa
