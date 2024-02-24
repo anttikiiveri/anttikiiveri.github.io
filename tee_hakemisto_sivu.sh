@@ -7,26 +7,37 @@ DIRECTORY="./sanastot"
 HTML_FILE="index.html"
 
 # Luodaan HTML-sivun alkuosa
-echo "<!DOCTYPE html>" > "$HTML_FILE"
-echo "<html>" >> "$HTML_FILE"
-echo "<head>" >> "$HTML_FILE"
-echo "  <title>Linkit .csv-tiedostoihin</title>" >> "$HTML_FILE"
-echo "</head>" >> "$HTML_FILE"
-echo "<body>" >> "$HTML_FILE"
-echo "  <h2>Linkit .csv-tiedostoihin</h2>" >> "$HTML_FILE"
-echo "  <ul>" >> "$HTML_FILE"
+cat <<EOF > "$HTML_FILE"
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Linkit .csv-tiedostoihin</title>
+</head>
+<body>
+    <h2>Linkit .csv-tiedostoihin</h2>
+    <ul>
+EOF
 
 # Käydään läpi .csv-tiedostot hakemistossa
 for file in "$DIRECTORY"/*.csv; do
-  # Otetaan vain tiedostonimi ilman hakemistopolkua
-  filename=$(basename -- "$file")
-  # Luodaan suhteellinen linkki HTML-sivulle
-  echo "    <li><a href=\"https://anttikiiveri.github.io/$DIRECTORY/$filename\">$filename</a></li>" >> "$HTML_FILE"
+    # Otetaan vain tiedostonimi ilman hakemistopolkua
+    filename=$(basename -- "$file")
+    # Luodaan suhteellinen linkki HTML-sivulle ja kutsutaan aloitaTesti-funktiota
+    echo "    <li><a href=\"#\" onclick=\"aloitaTesti('$filename')\">$filename</a></li>" >> "$HTML_FILE"
 done
 
 # Luodaan HTML-sivun loppuosa
-echo "  </ul>" >> "$HTML_FILE"
-echo "</body>" >> "$HTML_FILE"
-echo "</html>" >> "$HTML_FILE"
+cat <<EOF >> "$HTML_FILE"
+    </ul>
+    <script>
+        function aloitaTesti(tiedostoNimi) {
+            console.log('Aloita testi:', tiedostoNimi);
+            // Voit lisätä haluamasi toiminnallisuuden tässä vaiheessa
+        }
+    </script>
+</body>
+</html>
+EOF
 
 echo "HTML-sivu luotu: $HTML_FILE"

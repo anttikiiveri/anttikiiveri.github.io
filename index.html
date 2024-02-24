@@ -1,12 +1,24 @@
+
+
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Linkit .csv-tiedostoihin</title>
+    <meta charset="UTF-8">
+    <title>Linkit .csv-tiedostoihin</title>
 </head>
 <body>
-  <h2>Linkit .csv-tiedostoihin</h2>
-  <ul>
-    <li><a href=".././sanastot/eetun-ruotsi-kpl3.csv">eetun-ruotsi-kpl3.csv</a></li>
-  </ul>
+    <h2>Linkit .csv-tiedostoihin</h2>
+    <ul>
+        <li><a href="javascript:void(0);" onclick="siirryTestiin('eetun-ruotsi-kpl3.csv')">eetun-ruotsi-kpl3.csv</a></li>
+    </ul>
+    <script>
+        function siirryTestiin(tiedostoNimi) {
+            console.log('Aloita testi:', tiedostoNimi);
+            // Lisää tiedosto URL-parametriksi ja siirry aloitaTesti.html-sivulle
+            window.location.href = 'testi_aloita_testi.html?tiedosto=' + encodeURIComponent(tiedostoNimi);
+        }
+    </script>
 </body>
 </html>
+
+

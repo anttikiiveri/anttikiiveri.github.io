@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aloita testi</title>
+</head>
+<body>
+    <h2>Aloita testi</h2>
+    <!-- JavaScript koodi hakee URL-parametrin ja näyttää sen -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var tiedostoParametri = getURLParameter('tiedosto');
+            document.body.innerHTML += '<p>Tiedosto valittu: <strong>' + tiedostoParametri + '</strong></p>';
+        });
+
+        // Funktio hakee URL-parametrin
+        function getURLParameter(name) {
+            var urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+    </script>
+</body>
+</html>
