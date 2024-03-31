@@ -9,12 +9,13 @@
     <ul>
     <li><a href="#" onclick="siirryTestiin('eetun-enkku-maaliskuu-12.csv')">eetun-enkku-maaliskuu-12.csv</a></li>
     <li><a href="#" onclick="siirryTestiin('eetun-ruotsi-kpl3.csv')">eetun-ruotsi-kpl3.csv</a></li>
+    <li><a href="#" onclick="siirryTestiin('trampolin-kappale4.csv')">trampolin-kappale4.csv</a></li>
     </ul>
     <script>
         function siirryTestiin(tiedostoNimi) {
             console.log('Aloita testi:', tiedostoNimi);
             // Lisää tiedosto URL-parametriksi ja siirry aloitaTesti.html-sivulle
-            window.location.href = 'aloita_testi.html?tiedosto=' + encodeURIComponent(tiedostoNimi);
+            window.location.href = 'testi_aloita_testi.html?tiedosto=' + encodeURIComponent(tiedostoNimi);
         }
     </script>
 </body>

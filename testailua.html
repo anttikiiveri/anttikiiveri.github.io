@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexbox Example</title>
+    <style>
+        #container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f0f0f0; /* Lisätty taustaväri näkyvyyden parantamiseksi */
+            padding: 10px; /* Lisätty sisällön parempaan näkymiseen */
+            height: 500px;
+        }
+
+        #element1,
+        #element3,
+        #element2 {
+            height: 100%; /* Lisätty korkeus sisällön näkymisen varmistamiseksi */
+        }
+
+        #element1,
+        #element3 {
+            width: 20%;
+            background-color: lightblue; /* Lisätty taustaväri näkyvyyden parantamiseksi */
+        }
+
+        #element2 {
+            width: 50%;
+            background-color: lightcoral; /* Lisätty taustaväri näkyvyyden parantamiseksi */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="element1"></div>
+        <div id="element2"></div>
+        <div id="element3"></div>
+    </div>
+</body>
+
+</html>
