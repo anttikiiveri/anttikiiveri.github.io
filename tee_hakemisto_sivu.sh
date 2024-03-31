@@ -34,7 +34,7 @@ cat <<EOF >> "$HTML_FILE"
         function siirryTestiin(tiedostoNimi) {
             console.log('Aloita testi:', tiedostoNimi);
             // Lisää tiedosto URL-parametriksi ja siirry aloitaTesti.html-sivulle
-            window.location.href = 'testi_aloita_testi.html?tiedosto=' + encodeURIComponent(tiedostoNimi);
+            window.location.href = 'aloita_testi.html?tiedosto=' + encodeURIComponent(tiedostoNimi);
         }
     </script>
 </body>
