@@ -2,6 +2,7 @@ var sanasto = [];
 var oikeatVastaukset = 0;
 var vaaratVastaukset = 0;
 var kysymys = '';
+var sanojenMaara = 0;
 
 var answerInput = document.getElementById('answer');
 
@@ -15,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         .then(function (tiedostonSisalto) {
             sanasto = parseCSV(tiedostonSisalto);
+            sanojenMaara = sanasto.length
             naytaTilanne();
             naytaKysymys();
         })
@@ -42,6 +44,7 @@ function naytaTilanne() {
     // Näytä tilanne jokaisen vastauksen jälkeen
     var tilanne = 'Oikeat vastaukset: ' + oikeatVastaukset + ', Väärät vastaukset: ' + vaaratVastaukset + ', Kysymyksiä jäljellä: ' + sanasto.length;
     document.getElementById('stats-container').textContent = tilanne;
+    setProgress(oikeatVastaukset/sanojenMaara*100)
 }
 
 function parseCSV(csvData) {
@@ -57,6 +60,15 @@ function parseCSV(csvData) {
     shuffle(sanat);
     return sanat;
 }
+
+function setProgress(percent) {
+    const circle = document.querySelector('.progress-bar circle');
+    const radius = circle.r.baseVal.value;
+    const circumference = 2 * Math.PI * radius;
+    const offset = circumference - percent / 100 * circumference;
+    circle.style.strokeDasharray = `${circumference} ${circumference}`;
+    circle.style.strokeDashoffset = offset;
+  }
 
 function shuffle(array) {
     let currentIndex = array.length, randomIndex;
