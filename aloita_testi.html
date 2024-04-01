@@ -118,12 +118,23 @@
         }
 
         #otsikko {
-            font-size: 24px;
-            height: 80px;
+            font-size: 16px;
+            height: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Keskitä pystysuunnassa */
         }
 
         #kysymysJaVastaus {
-            display: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Keskitä pystysuunnassa */
+         }
+
+         #question-container {
+            flex-direction: column;
+            text-align: center; /* Keskitä sisällöt vasemmalle */
+            align-items: center; 
         }
 
         #ylaNakyma {
