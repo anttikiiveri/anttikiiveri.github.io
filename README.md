@@ -1,6 +1,6 @@
 Sanakyselin
 
-Palvelu löytyy tällä hetkellä reposta/osoitteesta https://github.com/anttikiiveri/sanakyselin
+Palvelu löytyy tällä hetkellä repostao https://github.com/anttikiiveri/sanakyselin ja osoitteesta https://anttikiiveri.github.io/sanakyselin.html
 
 Käyttö: lisää hakemistoon 'sanastot' opeteltavat sanat. Hakemistosta löytyy esimerkkejä. Uuden tiedoston nimeksi kannattaa valita esimerkiski "Minun-englannnin-kpl-3.csv". Tiedostopäätteen tulee olla .csv. Nimen kannatta olla myös kuvaava, että tietää mitä kirjan kappaletta sanat koskevat ja mikä kieli on kyseessä.
 
