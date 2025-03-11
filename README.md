@@ -1,6 +1,6 @@
 Sanakyselin
 
-Palvelu löytyy tällä hetkellä reposta https://github.com/anttikiiveri/anttikiiveri.github.io ja osoitteesta https://anttikiiveri.github.io/sanakyselin.html
+Palvelu löytyy tällä hetkellä reposta https://github.com/anttikii.ssh/configveri/anttikiiveri.github.io ja osoitteesta https://anttikiiveri.github.io/sanakyselin.html
 
 Käyttö: lisää hakemistoon 'sanastot' opeteltavat sanat. Hakemistosta löytyy esimerkkejä. Uuden tiedoston nimeksi kannattaa valita esimerkiski "Minun-englannnin-kpl-3.csv". Tiedostopäätteen tulee olla .csv. Nimen kannatta olla myös kuvaava, että tietää mitä kirjan kappaletta sanat koskevat ja mikä kieli on kyseessä.
 
@@ -50,5 +50,6 @@ Host github.com-work
 
 3. Kun repo kloonataan, niin tuohon käytettävään avaimeen viitataan seuraavasti
 git clone git@github.com-personal:anttikiiveri/sanakyselin.git
+git clone git@github.com-personal:anttikiiveri/anttikiiveri.github.io.git
 
 Eli config -filessä annettu Host on se referenssi, joka täytyy listätä tuohon rimpsuun (esim github.com-personal)
