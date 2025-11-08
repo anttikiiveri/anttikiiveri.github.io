@@ -19,11 +19,9 @@ cat <<EOF > "$HTML_FILE"
     <ul>
 EOF
 
-# Käydään läpi .csv-tiedostot hakemistossa
-for file in "$DIRECTORY"/*.csv; do
-    # Otetaan vain tiedostonimi ilman hakemistopolkua
+# Käydään läpi .csv-tiedostot uusimmasta vanhimpaan
+for file in $(ls -t "$DIRECTORY"/*.csv); do
     filename=$(basename -- "$file")
-    # Luodaan suhteellinen linkki HTML-sivulle ja kutsutaan aloitaTesti-funktiota
     echo "    <li><a href=\"#\" onclick=\"siirryTestiin('$filename')\">$filename</a></li>" >> "$HTML_FILE"
 done
 
@@ -33,7 +31,6 @@ cat <<EOF >> "$HTML_FILE"
     <script>
         function siirryTestiin(tiedostoNimi) {
             console.log('Aloita testi:', tiedostoNimi);
-            // Lisää tiedosto URL-parametriksi ja siirry aloitaTesti.html-sivulle
             window.location.href = 'aloita_testi.html?tiedosto=' + encodeURIComponent(tiedostoNimi);
         }
     </script>
