@@ -2,6 +2,8 @@ Sanakyselin
 
 Palvelu löytyy tällä hetkellä reposta https://github.com/anttikii.ssh/configveri/anttikiiveri.github.io ja osoitteesta https://anttikiiveri.github.io/sanakyselin.html
 
+Ai-prompt.txt sisältää promptin, jolla AI osaa hakea kuvasta sanoja ja tehdä niistä mahdollisimman valmiin sanalista lisättäväksi palveluun.
+
 Käyttö: lisää hakemistoon 'sanastot' opeteltavat sanat. Hakemistosta löytyy esimerkkejä. Uuden tiedoston nimeksi kannattaa valita esimerkiski "Minun-englannnin-kpl-3.csv". Tiedostopäätteen tulee olla .csv. Nimen kannatta olla myös kuvaava, että tietää mitä kirjan kappaletta sanat koskevat ja mikä kieli on kyseessä.
 
 Kun tiedosto on lisätty 'sanastot'-kansioon, niin aja tee_hakemisto_sivu.sh skripti
