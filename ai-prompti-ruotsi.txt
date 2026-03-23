@@ -3,6 +3,7 @@ Kirjoita jokainen pari muodossa: suomenkielinen sana;ruotsinkielinen sana.
 Älä käytä välilyöntejä puolipilkun kummallakaan puolella.
 Jos sanan yhteydessä on taivutusluokkaa osoittava numero (kuten 1, 2, 3, 5 tai roomalaiset numerot I, II, III, IV), siirrä se suomenkielisen sanan perään juuri ennen puolipilkua.
 Poimi materiaalista kaikki sanat ja ilmaukset.
+Haluan, että käytät näitä sanoja, mitä kuvassa oli. Korjaa ainoastaan mahdolliset kirjoitusvirheet
 Esimerkkejä: 
 tänä aamuna;i morse
 vuokrata II;hyra, hyr, hyrde, hyrt
