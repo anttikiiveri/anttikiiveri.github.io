@@ -6,6 +6,11 @@ Ai-prompt.txt sisältää promptin, jolla AI osaa hakea kuvasta sanoja ja tehdä
 
 Käyttö: lisää hakemistoon 'sanastot' opeteltavat sanat. Hakemistosta löytyy esimerkkejä. Uuden tiedoston nimeksi kannattaa valita esimerkiski "Minun-englannnin-kpl-3.csv". Tiedostopäätteen tulee olla .csv. Nimen kannatta olla myös kuvaava, että tietää mitä kirjan kappaletta sanat koskevat ja mikä kieli on kyseessä.
 
+Jos tiedostossa on paljon sanoja, niin voit jakaa tiedoston pienemmiksi osiksi seuraavalla skriptillä:
+jaa_pienemmiksi.sh tiedostonimi rivit_osatiedostossa
+
+Esim sh ../jaa_pienemmiksi.sh PåGång3-KollPåMiljön.csv 16  
+
 Kun tiedosto on lisätty 'sanastot'-kansioon, niin aja tee_hakemisto_sivu.sh skripti
 
 sh ./tee_hakemisto_sivu.sh
